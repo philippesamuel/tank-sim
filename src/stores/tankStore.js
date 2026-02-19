@@ -41,12 +41,13 @@ export const useTankStore = defineStore('tank', {
     pressure:    1.0,   // bar (0–50)
 
     // ── Actuators ──────────────────────────────────────────
-    inletFlow:    0,    // m³/h (0–10), continuous slider
+    inletFlow:    10,   // m³/h (0–10), continuous slider
     outletFlow:   0,    // m³/h (0–10), continuous slider
     drainOpen:    false,
     gasValveOpen: false,
 
     // ── Sim internal ──────────────────────────────────────
+    simSpeed:     1,    // multiplier 1-10x
     running:      false,
     _timer:       null,
   }),
@@ -71,18 +72,19 @@ export const useTankStore = defineStore('tank', {
 
     reset() {
       this.stop()
-      this.level       = 50
-      this.temperature = 20
-      this.pressure    = 1.0
-      this.inletFlow   = 0
-      this.outletFlow  = 0
-      this.drainOpen   = false
+      this.level        = 50
+      this.temperature  = 20
+      this.pressure     = 1.0
+      this.inletFlow    = 10
+      this.outletFlow   = 0
+      this.drainOpen    = false
       this.gasValveOpen = false
+      this.simSpeed     = 1
     },
 
     // ── Main simulation tick ─────────────────────────────
     _tick() {
-      const dt = DT_S
+      const dt = DT_S * this.simSpeed
 
       // --- LEVEL -------------------------------------------
       const drainQ  = this.drainOpen ? DRAIN_FLOW_M3H : 0

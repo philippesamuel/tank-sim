@@ -6,6 +6,19 @@
       <span class="subtitle">20 m³ · Torispherical heads · Steam-jacketed (3 bar) — MVP</span>
     </header>
 
+    <div class="sim-toolbar">
+      <div class="sim-toolbar-inner">
+        <span class="im-toolbar-label">SIMULATION SPEED</span>
+        <input type="range" min="1" max="100" step="1"
+          :value="store.simSpeed" 
+          @input="store.simSpeed = +$event.target.value"
+          class="sim-speed-slider" 
+        />
+        <span class="sim-speed-value">{{ store.simSpeed }}</span>
+        <span class="sim-toolbar-hint">- meta control, not part of the process</span>
+      </div>
+    </div>
+
     <main class="app-body">
 
       <!-- Left: Tank drawing -->
@@ -84,6 +97,44 @@ html, body, #app {
   overflow: auto;
 }
 
+/* ── Simulator toolbar ───────────────────────────────── */
+.sim-toolbar {
+  padding: 6px 24px;
+  background: #0a0f1c;
+  border-bottom: 1px solid #1e2a3a;
+  display: flex;
+  align-items: center;
+}
+
+.sim-toolbar-inner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sim-toolbar-label {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #3a6a8a;
+  white-space: nowrap;
+}
+
+.sim-speed-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #4af;
+  border: 2px solid #fff;
+  cursor: pointer;
+}
+
+.sim-speed-value {
+  font-size: 10px;
+  color: #2a3a4a;
+  font-style: italic;
+}
+
 /* ── Tank section ────────────────────────────────────── */
 .tank-section {
   flex: 0 0 350px;
@@ -113,11 +164,13 @@ html, body, #app {
     flex-direction: column;
     align-items: center;
   }
+
   .tank-section {
     flex: none;
     width: 100%;
     max-width: 360px;
   }
+
   .right-panel {
     width: 100%;
     max-width: 360px;
