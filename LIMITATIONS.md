@@ -29,3 +29,26 @@ The steam jacket is visual only. Heat transfer from saturated steam (3 bar / 133
 - [ ] **Progressive Web App (PWA)** — `manifest.json` + Service Worker for offline support and home screen install
 - [ ] **State persistence** — `pinia-plugin-persistedstate` to survive page reloads
 - [ ] **Alarms & interlocks** — high pressure auto-vent, low level cutoff, over-temperature warning
+
+### Backend & Multi-user
+- [ ] **Authentication** — prerequisite for everything below; Supabase Auth covers email + OAuth (Google, GitHub)
+- [ ] **Simulation state persistence** — save/restore named simulation states per user; Supabase (managed Postgres) or Neon (serverless Postgres) as database
+- [ ] **Shared simulations** — groups of users observing or controlling the same simulation; requires an authoritative server-side sim loop and realtime broadcast (Supabase Realtime or WebSockets)
+- [ ] **Authoritative simulation server** — move the sim loop server-side so state is canonical, not per-browser; FastAPI + WebSockets is the natural fit (Python-friendly for physics code)
+- [ ] **Real fluid properties via CoolProp** — open-source thermophysical library (Python); enables real steam tables, liquid density and Cp as f(T, P) for the energy balance
+
+---
+
+## Target Architecture (long-term)
+
+```
+Browser (Vue + Pinia)
+  ↕ WebSocket
+FastAPI (Python)
+  ├── simulation loop (server-side, authoritative)
+  ├── CoolProp (real fluid properties)
+  └── Supabase (Postgres + Auth + Realtime)
+        ├── users & groups
+        ├── saved simulation states
+        └── realtime broadcast → shared simulations
+```
