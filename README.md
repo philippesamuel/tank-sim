@@ -59,12 +59,3 @@ cd tank-sim
 pnpm install
 pnpm dev
 ```
-
----
-
-## Roadmap
-
-- [ ] Energy balance — jacket heat transfer via steam condensation
-- [ ] Real fluid properties (density, Cp as f(T))
-- [ ] Safety interlocks — high pressure alarm, auto gas vent
-- [ ] Persist state across reloads (`pinia-plugin-persistedstate`)
