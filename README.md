@@ -2,7 +2,7 @@
 
 A real-time 2D process simulation of a pressurised, steam-jacketed vessel. Built as an engineering portfolio piece exploring interactive simulation, reactive state management, and automated deployment.
 
-**[Live demo → philippecosta.de/tank-sim](https://philippecosta.de/tank-sim/)**
+**[Live demo → tank-sim.philippecosta.de](https://tank-sim.philippecosta.de)**
 
 ![Tank Simulator Screenshot](screenshot.png)
 
